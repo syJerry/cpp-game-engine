@@ -18,7 +18,7 @@ void init_opengl()
     cout<<"init opengl"<<endl;
 
     //设置错误回调
-    glfwSetErrorCallback(error_callback);
+    glfwSetErrorCallback(nullptr);
 
     if (!glfwInit())
         exit(EXIT_FAILURE);

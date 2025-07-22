@@ -53,12 +53,12 @@ static const glm::vec3 kPositions[36] = {
 };
 static const glm::vec4 kColors[36] = {
         //Front
-        glm::vec4(1, 0, 0, 1),
-        glm::vec4(1, 0, 0, 1),
-        glm::vec4(1, 0, 0, 1),
-        glm::vec4(1, 0, 0, 1),
-        glm::vec4(1, 0, 0, 1),
-        glm::vec4(1, 0, 0, 1),
+        glm::vec4(1, 0, 0, 0),
+        glm::vec4(1, 0, 0, 0),
+        glm::vec4(1, 0, 0, 0),
+        glm::vec4(1, 0, 0, 0),
+        glm::vec4(1, 0, 0, 0),
+        glm::vec4(1, 0, 0, 0),
         //back
         glm::vec4(1, 0, 0, 1),
         glm::vec4(1, 0, 0, 1),

@@ -11,3 +11,8 @@ add_subdirectory(texture/load_imge)
 add_subdirectory(texture/draw_cube_texture)
 add_subdirectory(texture/export_compressed_texture)
 add_subdirectory(texture/draw_cube_compress_texture)
+
+add_subdirectory(vertex_index_and_buffer/vector)
+add_subdirectory(vertex_index_and_buffer/indices)
+add_subdirectory(vertex_index_and_buffer/buffer_object)
+add_subdirectory(vertex_index_and_buffer/vao)
