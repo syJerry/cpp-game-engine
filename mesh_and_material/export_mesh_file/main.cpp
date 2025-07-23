@@ -130,6 +130,7 @@ void GeneratorBufferObject() {
 
 int main() {
     VertexRemoveDumplicate();
+    ExportMesh(R"(C:\Users\TJR\Desktop\cpp-game-engine\res\model\cube.mesh)");
     init_opengl();
     auto texture2d = CreateTexture(R"(C:\Users\TJR\Desktop\cpp-game-engine\res\image\input_compressed.cpt)");
     compile_shader();

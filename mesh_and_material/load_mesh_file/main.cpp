@@ -1,7 +1,6 @@
-#include "VertexData.h"
-#include "ShaderSource.h"
+#include "MeshFilter.h"
+#include "Shader.h"
 #include "Texture2D.h"
-
 #include <iostream>
 #include <glad/glad.h>
 //#define GLFW_INCLUDE_NONE
@@ -23,9 +22,9 @@ static void error_callback(int err, const char *description) {
 }
 
 GLFWwindow *window;
-GLuint vertex_shader, fragment_shader, program;
 GLint mvp_location, vpos_location, vcol_location, u_diffuse_texture_location, a_uv_location;
 GLuint kVBO, kEBO, kVAO;
+MeshFilter meshfilter;
 
 /// 初始化OpenGL
 void init_opengl() {
@@ -56,31 +55,6 @@ void init_opengl() {
     glfwSwapInterval(0);//开启 垂直同步（VSync），限制帧率与显示器刷新率同步
 }
 
-/// 编译、链接Shader
-//编译、链接Shader
-void compile_shader() {
-    //创建顶点Shader
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    //指定Shader源码
-    glShaderSource(vertex_shader, 1, &vertex_shader_text, NULL);
-    //编译Shader
-    glCompileShader(vertex_shader);
-
-    //创建片段Shader
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    //指定Shader源码
-    glShaderSource(fragment_shader, 1, &fragment_shader_text, NULL);
-    //编译Shader
-    glCompileShader(fragment_shader);
-
-    //创建GPU程序
-    program = glCreateProgram();
-    //附加Shader
-    glAttachShader(program, vertex_shader);
-    glAttachShader(program, fragment_shader);
-    //Link
-    glLinkProgram(program);
-}
 
 Texture2D *CreateTexture(std::string image_file_path) {
     Texture2D *texture2d = Texture2D::LoadFromFile(image_file_path);
@@ -97,14 +71,16 @@ void GeneratorBufferObject() {
     //将缓冲区对象指定为顶点缓冲区对象
     glBindBuffer(GL_ARRAY_BUFFER, kVBO);
     //上传顶点数据到缓冲区对象
-    glBufferData(GL_ARRAY_BUFFER, kVertexRemoveDumplicateVector.size() * sizeof(Vertex),
-                 &kVertexRemoveDumplicateVector[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, meshfilter.mesh()->vertex_num_ * sizeof(Vertex),
+                 meshfilter.mesh()->vertex_data_, GL_STATIC_DRAW);
     //在GPU上创建缓冲区对象
     glGenBuffers(1, &kEBO);
     //将缓冲区对象指定为顶点索引缓冲区对象
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, kEBO);
     //上传顶点索引数据到缓冲区对象
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, kVertexIndexVector.size() * sizeof(unsigned short), &kVertexIndexVector[0],
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER,
+                 meshfilter.mesh()->vertex_index_num_ * sizeof(unsigned short),
+                 meshfilter.mesh()->vertex_index_data_,
                  GL_STATIC_DRAW);
 
     glBindVertexArray(kVAO);
@@ -129,16 +105,17 @@ void GeneratorBufferObject() {
 }
 
 int main() {
-    VertexRemoveDumplicate();
+    meshfilter.LoadMesh(R"(C:\Users\TJR\Desktop\cpp-game-engine\res\model\cube.mesh)");
     init_opengl();
     auto texture2d = CreateTexture(R"(C:\Users\TJR\Desktop\cpp-game-engine\res\image\input_compressed.cpt)");
-    compile_shader();
+    Shader shader;
+    shader.Parse(R"(C:\Users\TJR\Desktop\cpp-game-engine\res\shader)","Unlit");
     //获取shader属性ID
-    mvp_location = glGetUniformLocation(program, "u_mvp");
-    vpos_location = glGetAttribLocation(program, "a_pos");
-    vcol_location = glGetAttribLocation(program, "a_color");
-    a_uv_location = glGetAttribLocation(program, "a_uv");
-    u_diffuse_texture_location = glGetUniformLocation(program, "u_diffuse_texture");
+    mvp_location = glGetUniformLocation(shader.getProgram(), "u_mvp");
+    vpos_location = glGetAttribLocation(shader.getProgram(), "a_pos");
+    vcol_location = glGetAttribLocation(shader.getProgram(), "a_color");
+    a_uv_location = glGetAttribLocation(shader.getProgram(), "a_uv");
+    u_diffuse_texture_location = glGetUniformLocation(shader.getProgram(), "u_diffuse_texture");
 
     GeneratorVertexArrayObject();
     GeneratorBufferObject();
@@ -189,7 +166,7 @@ int main() {
         mvp = projection * view * model;
 
         //指定GPU程序(就是指定顶点着色器、片段着色器)
-        glUseProgram(program);
+        glUseProgram(shader.getProgram());
         {
 
             //上传mvp矩阵
@@ -205,7 +182,7 @@ int main() {
 
             glBindVertexArray(kVAO);
             {
-                glDrawElements(GL_TRIANGLES,36,GL_UNSIGNED_SHORT,0);//使用顶点索引进行绘制，最后的0表示数据偏移量。
+                glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);//使用顶点索引进行绘制，最后的0表示数据偏移量。
             }
             glBindVertexArray(0);
         }

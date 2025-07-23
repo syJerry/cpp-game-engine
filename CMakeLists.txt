@@ -16,3 +16,6 @@ add_subdirectory(vertex_index_and_buffer/vector)
 add_subdirectory(vertex_index_and_buffer/indices)
 add_subdirectory(vertex_index_and_buffer/buffer_object)
 add_subdirectory(vertex_index_and_buffer/vao)
+
+add_subdirectory(mesh_and_material/export_mesh_file)
+add_subdirectory(mesh_and_material/load_mesh_file)
