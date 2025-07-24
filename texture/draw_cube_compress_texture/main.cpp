@@ -118,7 +118,7 @@ Texture2D* CreateTexture(std::string image_file_path)
 int main()
 {
     init_opengl();
-    auto texture2d = CreateTexture("C:\\Users\\TJR\\Desktop\\cpp-game-engine\\res\\image\\input_compressed.cpt");
+    auto texture2d = CreateTexture("C:\\Users\\TJR\\Desktop\\cpp-game-engine\\res\\images\\input_compressed.cpt");
     compile_shader();
 
     //获取shader属性ID

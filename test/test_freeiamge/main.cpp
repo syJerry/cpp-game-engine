@@ -16,14 +16,14 @@ FIBITMAP* LoadImage(const std::string& filepath) {
         format = FreeImage_GetFIFFromFilename(filepath.c_str());
     }
     if (format == FIF_UNKNOWN) {
-        std::cerr << "Error: Unknown image format!" << std::endl;
+        std::cerr << "Error: Unknown images format!" << std::endl;
         return nullptr;
     }
 
     // 加载图像
     FIBITMAP* image = FreeImage_Load(format, filepath.c_str(), 0);
     if (!image) {
-        std::cerr << "Error: Failed to load image!" << std::endl;
+        std::cerr << "Error: Failed to load images!" << std::endl;
         return nullptr;
     }
 
@@ -41,7 +41,7 @@ bool SaveImage(FIBITMAP* image, const std::string& filepath) {
     // 保存为 24 位 RGB 图像（自动转换）
     FIBITMAP* saveImage = FreeImage_ConvertTo24Bits(image);
     if (!saveImage) {
-        std::cerr << "Error: Failed to convert image to 24-bit!" << std::endl;
+        std::cerr << "Error: Failed to convert images to 24-bit!" << std::endl;
         return false;
     }
 
@@ -49,7 +49,7 @@ bool SaveImage(FIBITMAP* image, const std::string& filepath) {
     FreeImage_Unload(saveImage);
 
     if (!success) {
-        std::cerr << "Error: Failed to save image!" << std::endl;
+        std::cerr << "Error: Failed to save images!" << std::endl;
         return false;
     }
 
@@ -86,7 +86,7 @@ int main() {
     FreeImage_Unload(image); // 释放原始图像
 
     if (!processedImage) {
-        std::cerr << "Error: Failed to rotate image!" << std::endl;
+        std::cerr << "Error: Failed to rotate images!" << std::endl;
         FreeImage_DeInitialise();
         return 1;
     }
