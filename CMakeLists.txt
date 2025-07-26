@@ -7,6 +7,8 @@ add_subdirectory(draw_polygon/draw_quad)
 add_subdirectory(draw_polygon/draw_cube)
 
 #add_subdirectory(test/test_freeiamge)
+add_subdirectory(test/test_rttr)
+
 add_subdirectory(texture/load_imge)
 add_subdirectory(texture/draw_cube_texture)
 add_subdirectory(texture/export_compressed_texture)
@@ -21,3 +23,6 @@ add_subdirectory(mesh_and_material/export_mesh_file)
 add_subdirectory(mesh_and_material/load_mesh_file)
 add_subdirectory(mesh_and_material/use_shader_file)
 add_subdirectory(mesh_and_material/use_material)
+add_subdirectory(mesh_and_material/mesh_renderer)
+
+add_subdirectory(export_blender/load_mesh_from_blender)

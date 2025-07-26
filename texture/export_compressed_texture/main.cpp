@@ -44,8 +44,8 @@ int main()
 {
     init_opengl();
     //从GPU中，将显存中保存的压缩好的纹理数据，下载到内存，并保存到硬盘。
-    std::string src_image_file_path("C:\\Users\\TJR\\Desktop\\cpp-game-engine\\res\\images\\input.jpg");
-    std::string cpt_file_path("C:\\Users\\TJR\\Desktop\\cpp-game-engine\\res\\images\\input_compressed.cpt");
+    std::string src_image_file_path("C:\\Users\\TJR\\Desktop\\cpp-game-engine\\res\\images\\Diffuse_FishSoup_Pot_1.jpg");
+    std::string cpt_file_path("C:\\Users\\TJR\\Desktop\\cpp-game-engine\\res\\images\\Diffuse_FishSoup_Pot_1.cpt");
     Texture2D::CompressImageFile(src_image_file_path,cpt_file_path);
 
     return 0;
