@@ -28,3 +28,5 @@ add_subdirectory(mesh_and_material/mesh_renderer)
 add_subdirectory(export_blender/load_mesh_from_blender)
 
 add_subdirectory(component/gameobject_component)
+
+add_subdirectory(camera/perspective_camera)
