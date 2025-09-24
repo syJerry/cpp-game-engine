@@ -31,3 +31,4 @@ add_subdirectory(component/gameobject_component)
 
 add_subdirectory(camera/perspective_camera)
 add_subdirectory(camera/two_camera)
+add_subdirectory(camera/camera_depth)
