@@ -30,3 +30,4 @@ add_subdirectory(export_blender/load_mesh_from_blender)
 add_subdirectory(component/gameobject_component)
 
 add_subdirectory(camera/perspective_camera)
+add_subdirectory(camera/two_camera)
